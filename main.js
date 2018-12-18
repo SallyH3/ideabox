@@ -6,6 +6,7 @@ function createNewIdea() {
 // build out new function, preventDefualt, invoke generateIdeaCard(), Create new idea instantiation. 
 //grab values from title and body inputs. Run our save to storage method that is out idea object file. 
 }
+
 function generateIdeaCard() {
   var card = document.createElement('section');
   var cardContainer = document.querySelector('.card-container');
