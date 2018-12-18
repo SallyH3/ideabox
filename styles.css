@@ -19,6 +19,11 @@ header {
   color: #FFF;
   margin-left: -5px;
 }
+.title-body-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .title-body-container {
   background-color: #EDF2F2;
@@ -27,8 +32,6 @@ header {
   flex-direction: column;
   font-size: 20px;
   font-weight: 300;
-  margin: auto;
-  /* margin auto not centering content*/
   padding: 10px 0px;
 }
 
