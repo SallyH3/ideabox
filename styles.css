@@ -20,6 +20,7 @@ header {
   margin-left: -5px;
 }
 .title-body-wrapper {
+  background-color: #EDF2F2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,13 +36,17 @@ header {
   padding: 10px 0px;
 }
 
+.main-title {
+  display: flex;
+}
+
 #title-input {
   border: 1px solid #D2CCCD;
   border-radius: 4px;
   font-weight: 300;
   height: 30px;
   margin: 10px 0px;
-  width: 500px;
+  width: 650px;
 }
 
 #body-input {
@@ -50,10 +55,10 @@ header {
   font-weight: 300;
   height: 80px;
   margin: 10px 0px;
-  width: 500px;
+  width: 650px;
 }
 
-.save-button {
+#save-button {
   background-color: #5F5C6B;
   border-radius: 4px;
   color: #FFFFFF;
@@ -62,14 +67,14 @@ header {
   height: 40px;
   margin-bottom: 15px;
   margin-top: 20px;
-  width: 500px;
+  width: 650px;
 }
 
-.save-button:disabled {
+#save-button:disabled {
   background-color: #C2C1C0;
 }
 
-.save-button:hover {
+#save-button:hover {
   background-color: #524649;
 }
 
@@ -102,6 +107,7 @@ header {
   margin: -1px;
   padding: 0.3rem 0.3rem 0.3rem 0;
   padding-left: 5px;
+  width: 250px;
 }
 
 .card-container {
@@ -112,4 +118,49 @@ header {
   flex-wrap: wrap;
   padding-top: 20px;
   height: 500px;
+}
+
+/* -- Media Queries -- */
+
+@media screen and (max-width: 680px) {
+  .title-body-wrapper,
+  .title-body-container,
+  #title-input,
+  #body-input,
+  #save-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 594px) {
+  #live-search,
+  .ideabox-title,
+  .triples-title,
+  {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .ideabox-title,
+  .triples-title,
+  #live-search {
+    /* too much space between ideabox and triples title */
+    display: flex;
+    font-size: 24px;
+    padding-left: 20px;
+    width: 100%;
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-body-container,
+  #title-input,
+  #body-input,
+  #save-button {
+  width: 100%;
+  }
 }
