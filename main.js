@@ -1,4 +1,4 @@
-var saveButton = document.querySelector('.save-button'):
+var saveButton = document.querySelector('#save-button');
 
 saveButton.addEventListener('click', createNewIdea);
 
