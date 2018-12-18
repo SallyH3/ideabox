@@ -34,3 +34,15 @@ function generateIdeaCard(ideaObject) {
   `
   cardContainer.prepend(card);
 }
+
+function persistCardsOnPageLoad() {
+  var keyArray = Object.keys(localStorage);
+  keyArray.forEach(function(key) {
+  var getIdea = localStorage.getItem(key);
+  var parsedIdea = JSON.parse(getIdea);
+  var ideaObject = new Idea(parsedIdea.title, parsedIdea.body, parsedIdea.id, parsedIdea.qualityIndex);
+  generateIdeaCard(ideaObject);
+  });
+}
+
+persistCardsOnPageLoad();
