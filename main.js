@@ -2,12 +2,16 @@ var saveButton = document.querySelector('.save-button'):
 
 saveButton.addEventListener('click', createNewIdea);
 
-function createNewIdea() {
-// build out new function, preventDefualt, invoke generateIdeaCard(), Create new idea instantiation. 
-//grab values from title and body inputs. Run our save to storage method that is out idea object file. 
+function createNewIdea(e) {
+  e.preventDefault();
+  var ideaTitleInput = document.querySelector('#title-input').value;
+  var ideaBodyInput = document.querySelector('#body-input').value;
+  var ideaObject = new Idea(ideaTitleInput, ideaBodyInput);
+  ideaObject.saveToStorage();
+  generateIdeaCard(ideaObject);
 }
 
-function generateIdeaCard() {
+function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   var cardContainer = document.querySelector('.card-container');
   card.className = 'idea-card';
