@@ -16,11 +16,20 @@ function createNewIdea(e) {
   generateIdeaCard(ideaObject);
   cardArray.push(ideaObject);
   ideaObject.saveToStorage(cardArray);
+  clearTextFields();
+}
+
+function clearTextFields() {
+  var ideaTitleInput = document.querySelector('#title-input');
+  var ideaBodyInput = document.querySelector('#body-input');
+  ideaTitleInput.value = '';
+  ideaBodyInput.value = '';
 }
 
 function removeAllCards() {
   cardWrapper.innerHTML = '';
 }
+
 //at the beginning of live search function, remove cards
 function liveSearchFilter() {
   removeAllCards();
