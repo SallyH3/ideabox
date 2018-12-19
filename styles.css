@@ -13,6 +13,8 @@ header {
 
 img {
   width: 20px;
+  margin: 5px;
+
 }
 
 .ideabox-title {
@@ -137,8 +139,17 @@ img {
   color: #7C7879;
 }
 
+.arrow-buttons-quality-container,
+.delete-button-container {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+
 .idea-card-footer {
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 

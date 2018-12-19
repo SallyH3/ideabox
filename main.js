@@ -55,10 +55,14 @@ function generateIdeaCard(ideaObject) {
     <hr>
     </article>
     <footer class="idea-card-footer">
-      <img class="downvote-button" src="downvote.svg">
-      <img class="upvote-button" src="upvote.svg">
-      Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
-      <img class="delete-button" src="delete.svg">
+      <section class="arrow-buttons-quality-container">
+        <img class="downvote-button" src="downvote.svg">
+        <img class="upvote-button" src="upvote.svg">
+        Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+      </section>
+      <section class="delete-button-container">
+        <img class="delete-button" src="delete.svg">
+      </section>
     </footer>
   </article>
   `
