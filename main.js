@@ -1,7 +1,7 @@
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
 var cardArray = [];
-var cardContainer = document.querySelector('.card-container');
+var cardWrapper = document.querySelector('.card-wrapper');
 
 
 searchInput.addEventListener('input', liveSearchFilter);
@@ -19,7 +19,7 @@ function createNewIdea(e) {
 }
 
 function removeAllCards() {
-  cardContainer.innerHTML = '';
+  cardWrapper.innerHTML = '';
 }
 //at the beginning of live search function, remove cards
 function liveSearchFilter() {
@@ -52,17 +52,21 @@ function generateIdeaCard(ideaObject) {
     </h2>  
     <article contenteditable = true class="card-body">
     ${ideaObject.body}
-    </article>
     <hr>
+    </article>
     <footer class="idea-card-footer">
-      <img class="downvote-button" <i> >
-      <img class="upvote-button" <i> >
-      Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
-      <img class="delete-button" <i> >
+      <section class="arrow-buttons-quality-container">
+        <img class="downvote-button" src="downvote.svg">
+        <img class="upvote-button" src="upvote.svg">
+        Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+      </section>
+      <section class="delete-button-container">
+        <img class="delete-button" src="delete.svg">
+      </section>
     </footer>
   </article>
   `
-  cardContainer.prepend(card);
+  cardWrapper.prepend(card);
 }
 
 function persistCardsOnPageLoad() {
