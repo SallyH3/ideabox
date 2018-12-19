@@ -1,19 +1,49 @@
 var saveButton = document.querySelector('#save-button');
+var searchInput = document.querySelector('#live-search');
+var cardArray = [];
+var cardContainer = document.querySelector('.card-container');
 
+
+searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
+window.addEventListener('load', persistCardsOnPageLoad);
 
 function createNewIdea(e) {
   e.preventDefault();
   var ideaTitleInput = document.querySelector('#title-input').value;
   var ideaBodyInput = document.querySelector('#body-input').value;
   var ideaObject = new Idea(ideaTitleInput, ideaBodyInput);
-  ideaObject.saveToStorage();
   generateIdeaCard(ideaObject);
+  cardArray.push(ideaObject);
+  ideaObject.saveToStorage(cardArray);
+}
+
+function removeAllCards() {
+  cardContainer.innerHTML = '';
+}
+//at the beginning of live search function, remove cards
+function liveSearchFilter() {
+  removeAllCards();
+  //delete card function invoked here
+  var searchCurrentText = searchInput.value;
+  var filteredCards = cardArray.filter(function (idea) {
+    return idea.title.includes(searchCurrentText) || idea.body.includes(searchCurrentText)
+  });
+  filteredCards.forEach(function(idea){
+    generateIdeaCard(idea);
+  })
+  console.log(filteredCards)
+  //filter checks for true/false boolean and returns
+  //any objects that meet that function as true
+  //checking .title and .body on each element in array
+  // As a user types in the search box, the list of ideas should 
+  //filter in real time to only display ideas whose title or body 
+  //include the user’s text. The page should not reload.
+
 }
 
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
-  var cardContainer = document.querySelector('.card-container');
   card.className = 'idea-card';
   card.innerHTML = 
   `<article id=${ideaObject.id} class="card-container">
@@ -36,13 +66,13 @@ function generateIdeaCard(ideaObject) {
 }
 
 function persistCardsOnPageLoad() {
-  var keyArray = Object.keys(localStorage);
-  keyArray.forEach(function(key) {
-  var getIdea = localStorage.getItem(key);
-  var parsedIdea = JSON.parse(getIdea);
-  var ideaObject = new Idea(parsedIdea.title, parsedIdea.body, parsedIdea.id, parsedIdea.qualityIndex);
-  generateIdeaCard(ideaObject);
-  });
+  if(localStorage.hasOwnProperty('array')) {
+    var getIdeas = localStorage.getItem('array');
+    var parsedIdeas = JSON.parse(getIdeas);
+    parsedIdeas.forEach(function(idea) {
+      var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+      cardArray.push(ideaObject);
+      generateIdeaCard(ideaObject);
+    });
+  }
 }
-
-persistCardsOnPageLoad();

@@ -8,9 +8,9 @@ class Idea {
     this.qualityIndex = qualityIndex || 0; 
   }
 
-  saveToStorage() {
-    var stringifyIdea = JSON.stringify(this);
-    localStorage.setItem(this.id, stringifyIdea);
+  saveToStorage(cardArray) {
+    var arrayJSON = JSON.stringify(cardArray);
+    localStorage.setItem('array', arrayJSON);
   }
 }
 
