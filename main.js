@@ -85,15 +85,15 @@ function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
   card.innerHTML = 
-  `<article id=${ideaObject.id} class="card-container">
+  `<section id=${ideaObject.id} class="card-container">
     <h2 contenteditable = true class="card-title">
-    ${ideaObject.title}
-    </h2>  
+      ${ideaObject.title}
+      </h2>  
     <article contenteditable = true class="card-body">
-    ${ideaObject.body}
-    <hr>
+      ${ideaObject.body}
+      <hr>
     </article>
-    <footer class="idea-card-footer">
+    <article class="idea-card-footer">
       <section class="arrow-buttons-quality-container">
         <img class="downvote-button" src="downvote.svg">
         <img class="upvote-button" src="upvote.svg">
@@ -102,8 +102,8 @@ function generateIdeaCard(ideaObject) {
       <section class="delete-button-container">
         <img class="delete-button" src="delete.svg">
       </section>
-    </footer>
-  </article>
+    </article>
+  </section>
   `
   cardWrapper.prepend(card);
 }
@@ -123,17 +123,20 @@ function persistCardsOnPageLoad() {
 
 function buttonEvents(e) {
   if (e.target.classList.contains('delete-button')) {
-    //we dont need to grab from localStorage 
-    // var storageItem = localStorage.getItem('array');
-    // var parsedItem = JSON.parse(storageItem);
-    // parsedItem.forEach(function(idea) {
-    // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    var storageItem = localStorage.getItem('array');
+    var parsedItem = JSON.parse(storageItem);
+    parsedItem.forEach(function(idea) {
+    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
     ideaObject.deleteFromStorage(ideaObject.id);
     e.target.parentNode.parentNode.parentNode.remove();
-    // closest instead of parentNode
     });
-  } 
+  }
 }
+    // cardArray.forEach(function(ideaObject) {
+    // cardArray.deleteFromStorage(ideaObject.id);
+    //we dont need to grab from localStorage 
+    // closest instead of parentNode
+
 
 
 // target array on upvote and downvote buttons below 

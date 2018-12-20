@@ -3,7 +3,8 @@ class Idea {
     this.title = title;
     this.body = body;
     this.id = id || Date.now();
-    //wrap brain around qualityIndex
+    // move back down to updateQuality after testing
+    this.qualityArray = ['swill', 'plausible', 'genius'];
     this.qualityIndex = qualityIndex || 0; 
   }
 
