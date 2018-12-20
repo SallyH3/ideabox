@@ -3,7 +3,6 @@ class Idea {
     this.title = title;
     this.body = body;
     this.id = id || Date.now();
-    this.qualityArray = ['swill', 'plausible', 'genius'];
     //wrap brain around qualityIndex
     this.qualityIndex = qualityIndex || 0; 
   }
@@ -22,6 +21,8 @@ class Idea {
     localStorage.removeItem(id);
   }
   // updateQuality(buttonClass) {
+    // update quality needs access to quality array
+    // this.qualityArray = ['swill', 'plausible', 'genius'];
   //   if(buttonClass.value === 'upvote-button') {
   //     this.qualityIndex++;
   //   } else if (buttonClass.value === 'downvote-button') {
