@@ -80,6 +80,7 @@ function liveSearchFilter() {
 
 }
 
+// address footer make it a section
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
@@ -107,6 +108,7 @@ function generateIdeaCard(ideaObject) {
   cardWrapper.prepend(card);
 }
 
+// assign value with || or 
 function persistCardsOnPageLoad() {
   if(localStorage.hasOwnProperty('array')) {
     var getIdeas = localStorage.getItem('array');
@@ -121,12 +123,14 @@ function persistCardsOnPageLoad() {
 
 function buttonEvents(e) {
   if (e.target.classList.contains('delete-button')) {
-    var storageItem = localStorage.getItem('array');
-    var parsedItem = JSON.parse(storageItem);
-    parsedItem.forEach(function(idea) {
-    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    //we dont need to grab from localStorage 
+    // var storageItem = localStorage.getItem('array');
+    // var parsedItem = JSON.parse(storageItem);
+    // parsedItem.forEach(function(idea) {
+    // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
     ideaObject.deleteFromStorage(ideaObject.id);
     e.target.parentNode.parentNode.parentNode.remove();
+    // closest instead of parentNode
     });
   } 
 }
