@@ -12,5 +12,11 @@ class Idea {
     var arrayJSON = JSON.stringify(cardArray);
     localStorage.setItem('array', arrayJSON);
   }
+
+  updateContent(title, body, cardArray) {
+    this.title = title;
+    this.body = body;
+    this.saveToStorage(cardArray);
+  }
 }
 

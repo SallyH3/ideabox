@@ -3,10 +3,13 @@ var searchInput = document.querySelector('#live-search');
 var cardArray = [];
 var cardWrapper = document.querySelector('.card-wrapper');
 
+//EVENT LISTENERS
 
+cardWrapper.addEventListener('keyup', saveOnReturn);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
+
 
 function createNewIdea(e) {
   e.preventDefault();
@@ -17,6 +20,23 @@ function createNewIdea(e) {
   cardArray.push(ideaObject);
   ideaObject.saveToStorage(cardArray);
   clearTextFields();
+}
+
+function saveOnReturn(e) {
+  var cardTitle = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
+  var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText
+  console.log(cardTitle)
+  console.log(cardBody)
+  // var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
+  var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
+  if(e.keyCode === 13) {
+    console.log(cardTitle);
+    cardArray.forEach(function (card){
+      if(card.id === cardId) {
+        card.updateContent(cardTitle, cardBody, cardArray);
+      }
+    })
+  }
 }
 
 function clearTextFields() {
