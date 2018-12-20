@@ -37,16 +37,25 @@ function saveOnReturn(e) {
   }
 }
 
-function deleteIdea() {
-  //we'll have to grab the card id
-  //iterate through the card array
-  //find the card with the same id 
-  //as the one that was clicked on
-  //using splice we will remove a specific 
-  //card based on the index
-  //update card array in local storage
-  //we'll then call saveToStorage and pass 
-  //in cardArray 
+function deleteIdea(e) {
+  if (e.target.classList.contains('delete-button')) {
+    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    ideaObject = e.target.closest('.idea-card').dataset.index;
+    ideaObject.deleteFromStorage();
+    e.target.closest('.idea-card').remove();
+}
+}
+  //- Change function name from buttonEvents to RemoveCard
+// …After we grab the classList contains ‘delete-button’, 
+//we want to declare a new var called ideaObject and assign that to 
+//e.target.closest(‘idea-card’).dataset.index(this gives us access to 
+//the data attributes of the event we’re targeting both in HTML and 
+//the DOM but, we’re going to be targeting the DOM in this case),
+// Then we want to do our ideaObject.deleteFromStorage();
+// Finally, we want to do e.target.closest(‘.idea-card’).remove();
+
+function updateCardQuality() {
+//function for upvote and downvote buttons
 }
 
 function clearTextFields() {
@@ -121,17 +130,19 @@ function persistCardsOnPageLoad() {
   }
 }
 
-function buttonEvents(e) {
-  if (e.target.classList.contains('delete-button')) {
-    var storageItem = localStorage.getItem('array');
-    var parsedItem = JSON.parse(storageItem);
-    parsedItem.forEach(function(idea) {
-    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    ideaObject.deleteFromStorage(ideaObject.id);
-    e.target.parentNode.parentNode.parentNode.remove();
-    });
-  }
-}
+// ----BASEMENT OF SANDBOX-------//
+
+// function buttonEvents(e) {
+//   if (e.target.classList.contains('delete-button')) {
+//     var storageItem = localStorage.getItem('array');
+//     var parsedItem = JSON.parse(storageItem);
+//     parsedItem.forEach(function(idea) {
+//     var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+//     ideaObject.deleteFromStorage(ideaObject.id);
+//     e.target.parentNode.parentNode.parentNode.remove();
+//     });
+//   }
+// }
     // cardArray.forEach(function(ideaObject) {
     // cardArray.deleteFromStorage(ideaObject.id);
     //we dont need to grab from localStorage 
@@ -154,6 +165,17 @@ function buttonEvents(e) {
 //   }
 // }
 
+//deleteIdea notes from Julie:
+
+  //we'll have to grab the card id
+  //iterate through the card array
+  //find the card with the same id 
+  //as the one that was clicked on
+  //using splice we will remove a specific 
+  //card based on the index
+  //update card array in local storage
+  //we'll then call saveToStorage and pass 
+  //in cardArray 
 
 
 
