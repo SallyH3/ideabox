@@ -23,13 +23,11 @@ function createNewIdea(e) {
 }
 
 function saveOnReturn(e) {
-  var cardTitle = e.target.closest('.card-container').nextElementSibling.innerText;
-  console.log(cardTitle)
-  var cardBody = e.target.classList.contains('.card-body');
+  var cardTitle = e.target.closest('.card-title').innerText;
+  var cardBody = e.target.closest('.card-body').innerText;
   var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
-  // var ideaObject = new Idea(cardTitle, cardBody);
   if(e.keyCode === 13) {
-    console.log(cardId);
+    console.log(cardTitle);
     cardArray.forEach(function (card){
       if(card.id === cardId) {
         card.updateContent(cardTitle, cardBody, cardArray);

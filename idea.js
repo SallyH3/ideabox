@@ -16,7 +16,6 @@ class Idea {
   updateContent(title, body, cardArray) {
     this.title = title;
     this.body = body;
-
     this.saveToStorage(cardArray);
   }
 }
