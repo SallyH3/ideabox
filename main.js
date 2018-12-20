@@ -23,8 +23,11 @@ function createNewIdea(e) {
 }
 
 function saveOnReturn(e) {
-  var cardTitle = e.target.closest('.card-title').innerText;
-  var cardBody = e.target.closest('.card-body').innerText;
+  var cardTitle = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
+  var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText
+  console.log(cardTitle)
+  console.log(cardBody)
+  // var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
   var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
   if(e.keyCode === 13) {
     console.log(cardTitle);
