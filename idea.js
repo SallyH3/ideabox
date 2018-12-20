@@ -21,14 +21,14 @@ class Idea {
   deleteFromStorage(id) {
     localStorage.removeItem(id);
   }
-  updateQuality(buttonClass) {
-    if(buttonClass.value === 'upvote-button') {
-      this.qualityIndex++;
-    } else if (buttonClass.value === 'downvote-button') {
-      this.qualityIndex--;
-    }
-    this.saveToStorage();
-    return this.qualityArray[this.qualityIndex];
-  }
+  // updateQuality(buttonClass) {
+  //   if(buttonClass.value === 'upvote-button') {
+  //     this.qualityIndex++;
+  //   } else if (buttonClass.value === 'downvote-button') {
+  //     this.qualityIndex--;
+  //   }
+  //   this.saveToStorage();
+  //   return this.qualityArray[this.qualityIndex];
+  // }
 }
 

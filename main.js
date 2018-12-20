@@ -11,6 +11,7 @@ searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
 
+//FUNCTIONS
 
 function createNewIdea(e) {
   e.preventDefault();
@@ -39,10 +40,13 @@ function saveOnReturn(e) {
 function deleteIdea() {
   //we'll have to grab the card id
   //iterate through the card array
-  //find the card with the same id as the one that was clicked on
-  //using splice we will remove a specific card based on the index
+  //find the card with the same id 
+  //as the one that was clicked on
+  //using splice we will remove a specific 
+  //card based on the index
   //update card array in local storage
-      //we'll then call saveToStorage and pass in cardArray 
+  //we'll then call saveToStorage and pass 
+  //in cardArray 
 }
 
 function clearTextFields() {
@@ -66,8 +70,7 @@ function liveSearchFilter() {
   });
   filteredCards.forEach(function(idea){
     generateIdeaCard(idea);
-  })
-  console.log(filteredCards)
+  });
   //filter checks for true/false boolean and returns
   //any objects that meet that function as true
   //checking .title and .body on each element in array
@@ -116,23 +119,26 @@ function persistCardsOnPageLoad() {
   }
 }
 
-// target array on upvote and downvote buttons
-
 function buttonEvents(e) {
   if (e.target.classList.contains('delete-button')) {
     var storageItem = localStorage.getItem('array');
-    // var storageItem = localStorage.getItem(e.target.parentNode.parentNode.id);
     var parsedItem = JSON.parse(storageItem);
     parsedItem.forEach(function(idea) {
     var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    console.log(ideaObject);
     ideaObject.deleteFromStorage(ideaObject.id);
     e.target.parentNode.parentNode.parentNode.remove();
     });
   } 
 }
+
+
+// target array on upvote and downvote buttons below 
+//(in same function)...
+//take out OR || logical operator and elseif and make into
+//an if statement instead per FEM3 student's advice
+
   // else if (e.target.classList.contains('upvote-button') || e.target.classList.contains('downvote-button')) {
-  //   var storageItem = localStorage.getItem(e.target.parentNode.parentNode.id);
+  //   var storageItem = localStorage.getItem('array');
   //   var parsedItem = JSON.parse(storageItem);
     // var ideaObject = new Idea JSON.parse(idea.title, idea.body, idea.id, idea.qualityIndex);
     // ideaObject.updateQuality(e.target.classList);
