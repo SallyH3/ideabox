@@ -13,18 +13,11 @@ class Idea {
     localStorage.setItem('array', arrayJSON);
   }
 
-  updateContent(text, type) {
-    //if you're changing the title, 
-    //change the title, if changing the body, change the body
-    //so you can specify because it will need to be dynamic for what 
-    //the user will enter
-    if(type === 'title') {
-      this.title = text;
-    }
-    if(type === 'body') {
-      this.body = text;
-    }
-    this.saveToStorage();
+  updateContent(title, body, cardArray) {
+    this.title = title;
+    this.body = body;
+
+    this.saveToStorage(cardArray);
   }
 }
 

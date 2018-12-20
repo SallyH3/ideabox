@@ -5,7 +5,7 @@ var cardWrapper = document.querySelector('.card-wrapper');
 
 //EVENT LISTENERS
 
-// cardWrapper.addEventListener('keyup', saveOnReturn);
+cardWrapper.addEventListener('keyup', saveOnReturn);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
@@ -23,17 +23,18 @@ function createNewIdea(e) {
 }
 
 function saveOnReturn(e) {
-  var ideaTitleInput = document.querySelector('#title-input');
-  var ideaBodyInput = document.querySelector('#body-input');
-  var ideaObject = new Idea(ideaTitleInput.value, ideaBodyInput.value);
+  var cardTitle = e.target.closest('.card-container').nextElementSibling.innerText;
+  console.log(cardTitle)
+  var cardBody = e.target.classList.contains('.card-body');
+  var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
+  // var ideaObject = new Idea(cardTitle, cardBody);
   if(e.keyCode === 13) {
-    if(e.target.className === 'card-title') {
-      ideaObject.updateContent(e.target.innerText, 'title');
-    }
-    if(e.target.className === 'card-body') {
-      ideaObject.updateContent(e.target.innerText, 'body');
-    }
-    ideaObject.updateContent();
+    console.log(cardId);
+    cardArray.forEach(function (card){
+      if(card.id === cardId) {
+        card.updateContent(cardTitle, cardBody, cardArray);
+      }
+    })
   }
 }
 
