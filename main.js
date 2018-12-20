@@ -6,6 +6,7 @@ var cardWrapper = document.querySelector('.card-wrapper');
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
+cardWrapper.addEventListener('click', buttonEvents);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
@@ -24,19 +25,24 @@ function createNewIdea(e) {
 
 function saveOnReturn(e) {
   var cardTitle = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
-  var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText
-  console.log(cardTitle)
-  console.log(cardBody)
-  // var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
+  var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText;
   var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
   if(e.keyCode === 13) {
-    console.log(cardTitle);
     cardArray.forEach(function (card){
       if(card.id === cardId) {
         card.updateContent(cardTitle, cardBody, cardArray);
       }
     })
   }
+}
+
+function deleteIdea() {
+  //we'll have to grab the card id
+  //iterate through the card array
+  //find the card with the same id as the one that was clicked on
+  //using splice we will remove a specific card based on the index
+  //update card array in local storage
+      //we'll then call saveToStorage and pass in cardArray 
 }
 
 function clearTextFields() {
@@ -109,3 +115,35 @@ function persistCardsOnPageLoad() {
     });
   }
 }
+
+// target array on upvote and downvote buttons
+
+function buttonEvents(e) {
+  if (e.target.classList.contains('delete-button')) {
+    var storageItem = localStorage.getItem('array');
+    // var storageItem = localStorage.getItem(e.target.parentNode.parentNode.id);
+    var parsedItem = JSON.parse(storageItem);
+    parsedItem.forEach(function(idea) {
+    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    console.log(ideaObject);
+    ideaObject.deleteFromStorage(ideaObject.id);
+    e.target.parentNode.parentNode.parentNode.remove();
+    });
+  } 
+}
+  // else if (e.target.classList.contains('upvote-button') || e.target.classList.contains('downvote-button')) {
+  //   var storageItem = localStorage.getItem(e.target.parentNode.parentNode.id);
+  //   var parsedItem = JSON.parse(storageItem);
+    // var ideaObject = new Idea JSON.parse(idea.title, idea.body, idea.id, idea.qualityIndex);
+    // ideaObject.updateQuality(e.target.classList);
+//   } else {
+//     return 
+//   }
+// }
+
+
+
+
+
+
+
