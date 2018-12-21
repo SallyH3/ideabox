@@ -10,14 +10,18 @@ var cardWrapper = document.querySelector('.card-wrapper');
 
 //downvoteButton.addEventListener('click', updateIdeaQuality);
 
-function updateIdeaQuality(vote, cardId) {
- var card = cardArray.find(function(x) {return cardId});
+function updateIdeaQuality(event, vote) {
+  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
+  console.log(cardIdentifier);
+ var card = cardArray.find(function(card) {
+      return card.id === cardIdentifier
+    });
    card.updateQuality(vote);
-  var cardContainerElement = document.getElementById(cardId);
+  var cardContainerElement = document.getElementById(cardIdentifier);
   var cardQualityFooterElement = cardContainerElement.children[2];
-  var cardArrrowButtons = cardQualityFooterElement.children[0]
-  var cardQualityText = cardArrrowButtons.children[2]
-  cardQualityText.innerText = card.qualityArray[card.qualityIndex];
+  var cardArrrowButtons = cardQualityFooterElement.children[0];
+  var cardQualityText = cardArrrowButtons.children[2];
+  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
 }
 
   
@@ -63,11 +67,10 @@ function saveOnReturn(e) {
 }
 
 function deleteIdea(cardId) {
-    var card = cardArray.find(function(x) {return cardId});
-    var index = cardArray.indexOf(function(x) {return cardId});
+    var card = cardArray.find(function(cardId) {return cardId});
+    var index = cardArray.indexOf(function(cardId) {return cardId});
     cardArray.splice(index, 1);
     card.deleteFromStorage(card.id);
-
     var deleteCard = document.getElementById(cardId.toString());
     deleteCard.parentElement.remove();
 }
@@ -131,7 +134,7 @@ function generateIdeaCard(ideaObject) {
     <article class="idea-card-footer">
       <section class="arrow-buttons-quality-container">
         <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality('downvote', ${ideaObject.id})">
-        <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality('upvote', ${ideaObject.id})">
+        <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
         <span>
         Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
         </span>
