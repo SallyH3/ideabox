@@ -6,11 +6,39 @@ var cardWrapper = document.querySelector('.card-wrapper');
 
 //EVENT LISTENERS
 
+//upvoteButton.addEventListener('click', updateIdeaQuality);
+
+//downvoteButton.addEventListener('click', updateIdeaQuality);
+
+function updateIdeaQuality(event, vote) {
+  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
+  console.log(cardIdentifier);
+ var card = cardArray.find(function(card) {
+      return card.id === cardIdentifier
+    });
+   card.updateQuality(vote);
+  var cardContainerElement = document.getElementById(cardIdentifier);
+  var cardQualityFooterElement = cardContainerElement.children[2];
+  var cardArrrowButtons = cardQualityFooterElement.children[0];
+  var cardQualityText = cardArrrowButtons.children[2];
+  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
+}
+
+  
+  //if user clicks upvote, increment quality index by 1
+  //unless idea is already genius don't do anything
+  //if user clicks downvote, decrement quality index by 1
+  //unless idea is already swill don't do anything
+  //quality update must be reflected on card in dom and local storage
+  //clicking either of these must not refresh page, new quality must be saved
+
+
 cardWrapper.addEventListener('keyup', saveOnReturn);
 // cardWrapper.addEventListener('click', deleteIdea);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
+
 
 //FUNCTIONS
 
@@ -39,27 +67,14 @@ function saveOnReturn(e) {
 }
 
 function deleteIdea(cardId) {
-  // if (e.target.classList.contains('delete-button')) {
-    // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    // var cardId = parseInt(e.target.closest('.idea-card').dataset.id);
-    // var index = cardArray.id.indexOf(cardId);
-    var card = cardArray.find(x => x.id == cardId);
-    var index = cardArray.indexOf(x => x.id == cardId);
+    var card = cardArray.find(function(cardId) {return cardId});
+    var index = cardArray.indexOf(function(cardId) {return cardId});
     cardArray.splice(index, 1);
-    // card = JSON.parse(card)
     card.deleteFromStorage(card.id);
-      // if(card.id === cardId){
-    //     card.deleteFromStorage(card.id);
-    //   }
-    // })
-      // ideaObject.id === id;
-    // cardArray[index].deleteFromStorage();
-
-    //look up toString function
     var deleteCard = document.getElementById(cardId.toString());
     deleteCard.parentElement.remove();
-    // e.target.closest('.idea-card').remove();
 }
+
   //- Change function name from buttonEvents to RemoveCard
 // …After we grab the classList contains ‘delete-button’, 
 //we want to declare a new var called ideaObject and assign that to 
@@ -69,9 +84,7 @@ function deleteIdea(cardId) {
 // Then we want to do our ideaObject.deleteFromStorage();
 // Finally, we want to do e.target.closest(‘.idea-card’).remove();
 
-function updateCardQuality() {
-//function for upvote and downvote buttons
-}
+
 
 function clearTextFields() {
   var ideaTitleInput = document.querySelector('#title-input');
@@ -120,9 +133,11 @@ function generateIdeaCard(ideaObject) {
     </article>
     <article class="idea-card-footer">
       <section class="arrow-buttons-quality-container">
-        <img class="downvote-button" src="downvote.svg">
-        <img class="upvote-button" src="upvote.svg">
+        <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality('downvote', ${ideaObject.id})">
+        <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
+        <span>
         Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+        </span>
       </section>
       <section class="delete-button-container">
         <img class="delete-button" src="delete.svg" onclick="deleteIdea(${ideaObject.id})">
