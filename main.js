@@ -21,7 +21,6 @@ function createNewIdea(e) {
   var ideaObject = new Idea(ideaTitleInput, ideaBodyInput);
   generateIdeaCard(ideaObject);
   cardArray.push(ideaObject);
-  console.log(ideaObject)
   ideaObject.saveToStorage(cardArray);
   clearTextFields();
 }
@@ -43,26 +42,22 @@ function deleteIdea(cardId) {
   // if (e.target.classList.contains('delete-button')) {
     // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
     // var cardId = parseInt(e.target.closest('.idea-card').dataset.id);
-    console.log(cardId); 
-    // console.log(cardArray[0].id)
     // var index = cardArray.id.indexOf(cardId);
     var card = cardArray.find(x => x.id == cardId);
     var index = cardArray.indexOf(x => x.id == cardId);
     cardArray.splice(index, 1);
-    console.log(card);
     // card = JSON.parse(card)
     card.deleteFromStorage(card.id);
       // if(card.id === cardId){
     //     card.deleteFromStorage(card.id);
     //   }
     // })
-      // console.log(id) 
       // ideaObject.id === id;
     // cardArray[index].deleteFromStorage();
 
     //look up toString function
     var deleteCard = document.getElementById(cardId.toString());
-    deleteCard.remove();
+    deleteCard.parentElement.remove();
     // e.target.closest('.idea-card').remove();
 }
   //- Change function name from buttonEvents to RemoveCard
