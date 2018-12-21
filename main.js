@@ -7,7 +7,7 @@ var cardWrapper = document.querySelector('.card-wrapper');
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
-cardWrapper.addEventListener('click', deleteIdea);
+// cardWrapper.addEventListener('click', deleteIdea);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
@@ -21,6 +21,7 @@ function createNewIdea(e) {
   var ideaObject = new Idea(ideaTitleInput, ideaBodyInput);
   generateIdeaCard(ideaObject);
   cardArray.push(ideaObject);
+  console.log(ideaObject)
   ideaObject.saveToStorage(cardArray);
   clearTextFields();
 }
@@ -38,19 +39,31 @@ function saveOnReturn(e) {
   }
 }
 
-function deleteIdea(e) {
-  if (e.target.classList.contains('delete-button')) {
+function deleteIdea(cardId) {
+  // if (e.target.classList.contains('delete-button')) {
     // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    var id = parseInt(e.target.closest('.idea-card').dataset.id);
-    console.log(id); 
-    var index = cardArray.findIndex(function (ideaObject) {
-      console.log(ideaObject.id) 
-      ideaObject.id === id;
-    });
-    console.log(index);
-    cardArray[index].deleteFromStorage();
-    e.target.closest('.idea-card').remove();
-  }
+    // var cardId = parseInt(e.target.closest('.idea-card').dataset.id);
+    console.log(cardId); 
+    // console.log(cardArray[0].id)
+    // var index = cardArray.id.indexOf(cardId);
+    var card = cardArray.find(x => x.id == cardId);
+    var index = cardArray.indexOf(x => x.id == cardId);
+    cardArray.splice(index, 1);
+    console.log(card);
+    // card = JSON.parse(card)
+    card.deleteFromStorage(card.id);
+      // if(card.id === cardId){
+    //     card.deleteFromStorage(card.id);
+    //   }
+    // })
+      // console.log(id) 
+      // ideaObject.id === id;
+    // cardArray[index].deleteFromStorage();
+
+    //look up toString function
+    var deleteCard = document.getElementById(cardId.toString());
+    deleteCard.remove();
+    // e.target.closest('.idea-card').remove();
 }
   //- Change function name from buttonEvents to RemoveCard
 // …After we grab the classList contains ‘delete-button’, 
@@ -100,9 +113,9 @@ function liveSearchFilter() {
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
-  card.dataset.id = ideaObject.id;
+  // card.dataset.id = ideaObject.id;
   card.innerHTML = 
-  `<section class="card-container">
+  `<section class="card-container" id="${ideaObject.id}">
     <h2 contenteditable = true class="card-title">
       ${ideaObject.title}
       </h2>  
@@ -117,7 +130,7 @@ function generateIdeaCard(ideaObject) {
         Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
       </section>
       <section class="delete-button-container">
-        <img class="delete-button" src="delete.svg">
+        <img class="delete-button" src="delete.svg" onclick="deleteIdea(${ideaObject.id})">
       </section>
     </article>
   </section>
@@ -127,8 +140,8 @@ function generateIdeaCard(ideaObject) {
 
 // assign value with || or 
 function persistCardsOnPageLoad() {
-  if(localStorage.hasOwnProperty('array')) {
-    var getIdeas = localStorage.getItem('array');
+  if(localStorage.hasOwnProperty('cardArray')) {
+    var getIdeas = localStorage.getItem('cardArray');
     var parsedIdeas = JSON.parse(getIdeas);
     parsedIdeas.forEach(function(idea) {
       var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
