@@ -1,12 +1,13 @@
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
 var cardArray = [];
+//perhaps change to ideaArrays or ideas because it is better semantically
 var cardWrapper = document.querySelector('.card-wrapper');
 
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
-cardWrapper.addEventListener('click', buttonEvents);
+cardWrapper.addEventListener('click', deleteIdea);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
@@ -39,11 +40,17 @@ function saveOnReturn(e) {
 
 function deleteIdea(e) {
   if (e.target.classList.contains('delete-button')) {
-    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    ideaObject = e.target.closest('.idea-card').dataset.index;
-    ideaObject.deleteFromStorage();
+    // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    var id = parseInt(e.target.closest('.idea-card').dataset.id);
+    console.log(id); 
+    var index = cardArray.findIndex(function (ideaObject) {
+      console.log(ideaObject.id) 
+      ideaObject.id === id;
+    });
+    console.log(index);
+    cardArray[index].deleteFromStorage();
     e.target.closest('.idea-card').remove();
-}
+  }
 }
   //- Change function name from buttonEvents to RemoveCard
 // …After we grab the classList contains ‘delete-button’, 
@@ -93,8 +100,9 @@ function liveSearchFilter() {
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
+  card.dataset.id = ideaObject.id;
   card.innerHTML = 
-  `<section id=${ideaObject.id} class="card-container">
+  `<section class="card-container">
     <h2 contenteditable = true class="card-title">
       ${ideaObject.title}
       </h2>  
