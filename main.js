@@ -1,12 +1,13 @@
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
 var cardArray = [];
+//perhaps change to ideaArrays or ideas because it is better semantically
 var cardWrapper = document.querySelector('.card-wrapper');
 
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
-cardWrapper.addEventListener('click', buttonEvents);
+// cardWrapper.addEventListener('click', deleteIdea);
 searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
@@ -37,13 +38,27 @@ function saveOnReturn(e) {
   }
 }
 
-function deleteIdea(e) {
-  if (e.target.classList.contains('delete-button')) {
-    var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-    ideaObject = e.target.closest('.idea-card').dataset.index;
-    ideaObject.deleteFromStorage();
-    e.target.closest('.idea-card').remove();
-}
+function deleteIdea(cardId) {
+  // if (e.target.classList.contains('delete-button')) {
+    // var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+    // var cardId = parseInt(e.target.closest('.idea-card').dataset.id);
+    // var index = cardArray.id.indexOf(cardId);
+    var card = cardArray.find(x => x.id == cardId);
+    var index = cardArray.indexOf(x => x.id == cardId);
+    cardArray.splice(index, 1);
+    // card = JSON.parse(card)
+    card.deleteFromStorage(card.id);
+      // if(card.id === cardId){
+    //     card.deleteFromStorage(card.id);
+    //   }
+    // })
+      // ideaObject.id === id;
+    // cardArray[index].deleteFromStorage();
+
+    //look up toString function
+    var deleteCard = document.getElementById(cardId.toString());
+    deleteCard.parentElement.remove();
+    // e.target.closest('.idea-card').remove();
 }
   //- Change function name from buttonEvents to RemoveCard
 // …After we grab the classList contains ‘delete-button’, 
@@ -93,8 +108,9 @@ function liveSearchFilter() {
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
+  // card.dataset.id = ideaObject.id;
   card.innerHTML = 
-  `<section id=${ideaObject.id} class="card-container">
+  `<section class="card-container" id="${ideaObject.id}">
     <h2 contenteditable = true class="card-title">
       ${ideaObject.title}
       </h2>  
@@ -109,7 +125,7 @@ function generateIdeaCard(ideaObject) {
         Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
       </section>
       <section class="delete-button-container">
-        <img class="delete-button" src="delete.svg">
+        <img class="delete-button" src="delete.svg" onclick="deleteIdea(${ideaObject.id})">
       </section>
     </article>
   </section>
@@ -119,8 +135,8 @@ function generateIdeaCard(ideaObject) {
 
 // assign value with || or 
 function persistCardsOnPageLoad() {
-  if(localStorage.hasOwnProperty('array')) {
-    var getIdeas = localStorage.getItem('array');
+  if(localStorage.hasOwnProperty('cardArray')) {
+    var getIdeas = localStorage.getItem('cardArray');
     var parsedIdeas = JSON.parse(getIdeas);
     parsedIdeas.forEach(function(idea) {
       var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
