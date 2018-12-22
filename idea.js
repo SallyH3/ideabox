@@ -31,10 +31,12 @@ class Idea {
   }
   updateQuality(vote) {
     if (vote === 'upvote' && this.qualityIndex != [2]) {
-      this.qualityIndex++ 
+      this.qualityIndex++; 
+      this.saveToStorage(cardArray);
     }
     if (vote === 'downvote' && this.qualityIndex != [0]) {
-      this.qualityIndex--
+      this.qualityIndex--;
+      this.saveToStorage(cardArray);
     }
     console.log(this.qualityIndex);
   }
