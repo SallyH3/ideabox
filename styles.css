@@ -65,7 +65,8 @@ img {
   width: 650px;
 }
 
-#save-button {
+#save-button,
+#show-more-less-button {
   background-color: #5F5C6B;
   border-radius: 4px;
   color: #FFFFFF;
@@ -102,6 +103,12 @@ img {
   font-size: 18px;
   padding: 5px;
   width: 33%;
+}
+
+.show-more-show-less-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .search-container {
