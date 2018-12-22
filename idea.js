@@ -30,10 +30,10 @@ class Idea {
     localStorage.setItem('cardArray', JSON.stringify(backIntoStorage));
   }
   updateQuality(vote) {
-    if (vote === 'upvote') {
-      this.qualityIndex++
+    if (vote === 'upvote' && this.qualityIndex != [2]) {
+      this.qualityIndex++ 
     }
-    if (vote === 'downvote') {
+    if (vote === 'downvote' && this.qualityIndex != [0]) {
       this.qualityIndex--
     }
     console.log(this.qualityIndex);
