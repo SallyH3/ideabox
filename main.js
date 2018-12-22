@@ -66,6 +66,16 @@ function saveOnReturn(e) {
   }
 }
 
+function filterIdeasByQuality(e) {
+  e.preventDefault();
+  this.qualityIndex++;
+  if(qualityIndex === [0]) {
+    cardArray.filter(function(quality) {
+      
+    })
+  }
+}
+
 function deleteIdea(cardId) {
     var card = cardArray.find(function(cardId) {return cardId});
     var index = cardArray.indexOf(function(cardId) {return cardId});
