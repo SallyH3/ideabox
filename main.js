@@ -10,6 +10,25 @@ var cardWrapper = document.querySelector('.card-wrapper');
 
 //downvoteButton.addEventListener('click', updateIdeaQuality);
 
+cardWrapper.addEventListener('keyup', saveOnReturn);
+// cardWrapper.addEventListener('click', deleteIdea);
+searchInput.addEventListener('input', liveSearchFilter);
+saveButton.addEventListener('click', createNewIdea);
+window.addEventListener('load', persistCardsOnPageLoad);
+document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
+  
+  //if user clicks upvote, increment quality index by 1
+  //unless idea is already genius don't do anything
+  //if user clicks downvote, decrement quality index by 1
+  //unless idea is already swill don't do anything
+  //quality update must be reflected on card in dom and local storage
+  //clicking either of these must not refresh page, new quality must be saved
+
+
+
+
+//FUNCTIONS
+
 function updateIdeaQuality(event, vote) {
   var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
   console.log(cardIdentifier);
@@ -23,24 +42,6 @@ function updateIdeaQuality(event, vote) {
   var cardQualityText = cardArrrowButtons.children[2];
   cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
 }
-
-  
-  //if user clicks upvote, increment quality index by 1
-  //unless idea is already genius don't do anything
-  //if user clicks downvote, decrement quality index by 1
-  //unless idea is already swill don't do anything
-  //quality update must be reflected on card in dom and local storage
-  //clicking either of these must not refresh page, new quality must be saved
-
-
-cardWrapper.addEventListener('keyup', saveOnReturn);
-// cardWrapper.addEventListener('click', deleteIdea);
-searchInput.addEventListener('input', liveSearchFilter);
-saveButton.addEventListener('click', createNewIdea);
-window.addEventListener('load', persistCardsOnPageLoad);
-
-
-//FUNCTIONS
 
 function createNewIdea(e) {
   e.preventDefault();
@@ -66,15 +67,18 @@ function saveOnReturn(e) {
   }
 }
 
-function filterIdeasByQuality(e) {
+function filterIdeasBySwill(e) {
   e.preventDefault();
-  this.qualityIndex++;
-  if(qualityIndex === [0]) {
-    cardArray.filter(function(quality) {
-      
-    })
-  }
+  removeAllCards();
+  var swillCards = cardArray.filter(function (idea) {
+  return idea.qualityIndex === 0;
+  });
+  swillCards.forEach(function(idea){
+  generateIdeaCard(idea);
+  });
 }
+
+
 
 function deleteIdea(cardId) {
     var card = cardArray.find(function(cardId) {return cardId});
@@ -124,8 +128,9 @@ function liveSearchFilter() {
   // As a user types in the search box, the list of ideas should 
   //filter in real time to only display ideas whose title or body 
   //include the user’s text. The page should not reload.
-
 }
+
+
 
 // address footer make it a section
 function generateIdeaCard(ideaObject) {
@@ -145,8 +150,9 @@ function generateIdeaCard(ideaObject) {
       <section class="arrow-buttons-quality-container">
         <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality(event, 'downvote')">
         <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
-        <span>
-        Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+        <span class="quality-category">
+        Quality: 
+        ${ideaObject.qualityArray[ideaObject.qualityIndex]}
         </span>
       </section>
       <section class="delete-button-container">
