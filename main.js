@@ -16,6 +16,8 @@ searchInput.addEventListener('input', liveSearchFilter);
 saveButton.addEventListener('click', createNewIdea);
 window.addEventListener('load', persistCardsOnPageLoad);
 document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
+document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
+document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
   
   //if user clicks upvote, increment quality index by 1
   //unless idea is already genius don't do anything
@@ -70,15 +72,35 @@ function saveOnReturn(e) {
 function filterIdeasBySwill(e) {
   e.preventDefault();
   removeAllCards();
-  var swillCards = cardArray.filter(function (idea) {
+  var swillCards = cardArray.filter(function(idea) {
   return idea.qualityIndex === 0;
   });
-  swillCards.forEach(function(idea){
+  swillCards.forEach(function(idea) {
   generateIdeaCard(idea);
   });
 }
 
+function filterIdeasByPlausible(e) {
+  e.preventDefault();
+  removeAllCards();
+  var plausibleCards = cardArray.filter(function(idea) {
+    return idea.qualityIndex === 1;
+  });
+  plausibleCards.forEach(function(idea) {
+    generateIdeaCard(idea);
+  });
+}
 
+function filterIdeasByGenius(e) {
+  e.preventDefault();
+  removeAllCards();
+  var geniusCards = cardArray.filter(function(idea) {
+    return idea.qualityIndex === 2;
+  });
+  geniusCards.forEach(function(idea) {
+    generateIdeaCard(idea);
+  });
+}
 
 function deleteIdea(cardId) {
     var card = cardArray.find(function(cardId) {return cardId});
