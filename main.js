@@ -133,7 +133,7 @@ function generateIdeaCard(ideaObject) {
     </article>
     <article class="idea-card-footer">
       <section class="arrow-buttons-quality-container">
-        <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality('downvote', ${ideaObject.id})">
+        <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality(event, 'downvote')">
         <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
         <span>
         Quality: ${ideaObject.qualityArray[ideaObject.qualityIndex]}
