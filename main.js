@@ -6,10 +6,6 @@ var cardWrapper = document.querySelector('.card-wrapper');
 
 //EVENT LISTENERS
 
-//upvoteButton.addEventListener('click', updateIdeaQuality);
-
-//downvoteButton.addEventListener('click', updateIdeaQuality);
-
 cardWrapper.addEventListener('keyup', saveOnReturn);
 // cardWrapper.addEventListener('click', deleteIdea);
 searchInput.addEventListener('input', liveSearchFilter);
@@ -18,13 +14,11 @@ window.addEventListener('load', persistCardsOnPageLoad);
 document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
 document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
-  
-  //if user clicks upvote, increment quality index by 1
-  //unless idea is already genius don't do anything
-  //if user clicks downvote, decrement quality index by 1
-  //unless idea is already swill don't do anything
-  //quality update must be reflected on card in dom and local storage
-  //clicking either of these must not refresh page, new quality must be saved
+document.querySelector('#show-more-less-button').addEventListener('click', )
+
+
+
+  //clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
 
 
 
@@ -100,6 +94,11 @@ function filterIdeasByGenius(e) {
   geniusCards.forEach(function(idea) {
     generateIdeaCard(idea);
   });
+}
+
+function showMoreShowLess(e) {
+  e.preventDefault();
+  var 
 }
 
 function deleteIdea(cardId) {
