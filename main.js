@@ -14,7 +14,7 @@ window.addEventListener('load', persistCardsOnPageLoad);
 document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
 document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
-document.querySelector('#show-more-less-button').addEventListener('click', )
+document.querySelector('#show-more-less-button').addEventListener('click', showMoreShowLess);
 
 
 
@@ -98,7 +98,13 @@ function filterIdeasByGenius(e) {
 
 function showMoreShowLess(e) {
   e.preventDefault();
-  var 
+  var arrayLength = cardArray.length;
+  console.log(arrayLength);
+  if (arrayLength >= 10) {
+    
+  } else {
+    // button says show more, cards on DOM don't change
+  }
 }
 
 function deleteIdea(cardId) {
