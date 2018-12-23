@@ -3,6 +3,7 @@ var searchInput = document.querySelector('#live-search');
 var cardArray = [];
 //perhaps change to ideaArrays or ideas because it is better semantically
 var cardWrapper = document.querySelector('.card-wrapper');
+var showMoreLessButton = document.querySelector('#show-more-less-button');
 
 //EVENT LISTENERS
 
@@ -14,8 +15,31 @@ window.addEventListener('load', persistCardsOnPageLoad);
 document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
 document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
-document.querySelector('#show-more-less-button').addEventListener('click', showMoreShowLess);
-
+// document.querySelector('#show-more-less-button').addEventListener('click', showMoreShowLess);
+showMoreLessButton.addEventListener('click', function(e){
+  e.preventDefault();
+  var arrayLength = cardArray.length;
+  // var button = document.querySelector('#show-more-less-button');
+  
+  var showMore = true;
+  for (var i = 0; i < arrayLength; i++) {
+    if (showMore && i >= 9) {
+      showMore = false;
+      var card = cardArray[i]; 
+      console.log(showMoreLessButton.innerText);
+      var hideCard = document.getElementById(card.id.toString());
+      hideCard.parentElement.style.display = 'none';
+      showMoreLessButton.innerText = 'Show More';
+    } else {
+      showMore = true;
+      debugger
+      var card = cardArray[i]; 
+      var showCard = document.getElementById(card.id.toString());
+      showCard.parentElement.style.display = 'block';
+      showMoreLessButton.innerText = 'Show Less';
+    }
+  }
+})
 
 
   //clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
@@ -96,20 +120,24 @@ function filterIdeasByGenius(e) {
   });
 }
 
-function showMoreShowLess(e) {
-  e.preventDefault();
-  var arrayLength = cardArray.length;
-  for (var i = 0; i < arrayLength; i++) {
-    if (i >= 10) {
-      var card = cardArray[i]; 
-      // console.log(card.id)
-      var hideCard = document.getElementById(card.id.toString());
-      // console.log(hideCard);
-      hideCard.parentElement.style.display = 'none';
-      // console.log(hideCard.parentElement);
-    }
-  }
-}
+// function showMoreShowLess(e) {
+//   e.preventDefault();
+//   var arrayLength = cardArray.length;
+//   var button = document.querySelector('#show-more-less-button');
+//   for (var i = 0; i < arrayLength; i++) {
+//     if (i >= 10) {
+//       var card = cardArray[i]; 
+//       var hideCard = document.getElementById(card.id.toString());
+//       hideCard.parentElement.style.display = 'none';
+//       button.innerHTML = 'Show More';
+//     } else {
+//       var card = cardArray[i]; 
+//       var showCard = document.getElementById(card.id.toString());
+//       button.innerHTML = 'Show Less';
+//       showCard.parentElement.style.display = 'block';
+//     }
+//   }
+// }
 
 function deleteIdea(cardId) {
     var card = cardArray.find(function(cardId) {return cardId});
