@@ -19,46 +19,19 @@ document.querySelector('.genius').addEventListener('click', filterIdeasByGenius)
 
 showMoreLessButton.addEventListener('click', recentIdeas);
 
+//FUNCTIONS
+
 function recentIdeas() {
-  if(showMoreLessButton.innerHTML === "Show Less") {
-  var reverseArray = cardArray.reverse();
-  console.log(cardArray)
-  var showTenIdeas = reverseArray.filter(function (idea, index) {
-    if (index <= 9) {
-    return idea;
-  }
-});
-  removeAllCards();
-  var recentTen = showTenIdeas.reverse();
-  recentTen.forEach(function(idea){
-    generateIdeaCard(idea);
-  });
-  showMoreLessButton.innerText === "Show More";
-} else if(showMoreLessButton.innerHTML === "Show More") {
-    persistCardsOnPageLoad();
+  if(showMoreLessButton.innerText === 'Show Less') {
+  cardWrapper.style.height = '1147px';
+  cardWrapper.style.overflow = 'hidden';
+  showMoreLessButton.innerText = 'Show More';
+
+} else {
+  showMoreLessButton.innerText = 'Show Less';
+  cardWrapper.style.overflow = 'visible';
   }
 }
-//   e.preventDefault();
-//       var slicedCards = cardArray.slice(9);
-//   cardArray.forEach(function(idea){
-//     console.log(idea)
-//     if(showMoreLessButton.innerText === "Show less") {
-//       slicedCards;
-//       console.log(slicedCards);
-//     }
-//     if(showMoreLessButton.innerText === "Show more") {
-//       persistCardsOnPageLoad(idea);
-//     }
-//   })
-// })
-
-
-  //clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
-
-
-
-
-//FUNCTIONS
 
 function updateIdeaQuality(event, vote) {
   var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
@@ -98,27 +71,6 @@ function saveOnReturn(e) {
   }
 }
 
-  // var arrayLength = cardArray.length;
-  // var button = document.querySelector('#show-more-less-button');
-  // var showMore = true;
-  // for (var i = 0; i < arrayLength; i++) {
-  //   if (showMore && i >= 9) {
-  //     showMore = false;
-  //     var card = cardArray[i]; 
-  //     console.log(showMoreLessButton.innerText);
-  //     var hideCard = document.getElementById(card.id.toString());
-  //     hideCard.parentElement.style.display = 'none';
-  //     showMoreLessButton.innerText = 'Show More';
-  //   } else {
-  //     showMore = true;
-  //     debugger
-  //     var card = cardArray[i]; 
-  //     var showCard = document.getElementById(card.id.toString());
-  //     showCard.parentElement.style.display = 'block';
-  //     showMoreLessButton.innerText = 'Show Less';
-  //   }
-  // }
-
 function filterIdeasBySwill(e) {
   e.preventDefault();
   removeAllCards();
@@ -151,25 +103,6 @@ function filterIdeasByGenius(e) {
     generateIdeaCard(idea);
   });
 }
-
-// function showMoreShowLess(e) {
-//   e.preventDefault();
-//   var arrayLength = cardArray.length;
-//   var button = document.querySelector('#show-more-less-button');
-//   for (var i = 0; i < arrayLength; i++) {
-//     if (i >= 10) {
-//       var card = cardArray[i]; 
-//       var hideCard = document.getElementById(card.id.toString());
-//       hideCard.parentElement.style.display = 'none';
-//       button.innerHTML = 'Show More';
-//     } else {
-//       var card = cardArray[i]; 
-//       var showCard = document.getElementById(card.id.toString());
-//       button.innerHTML = 'Show Less';
-//       showCard.parentElement.style.display = 'block';
-//     }
-//   }
-// }
 
 function deleteIdea(cardId) {
     var card = cardArray.find(function(cardId) {return cardId});
@@ -269,6 +202,81 @@ function persistCardsOnPageLoad() {
 }
 
 // ----BASEMENT OF SANDBOX-------//
+
+//clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
+
+  // var arrayLength = cardArray.length;
+  // var button = document.querySelector('#show-more-less-button');
+  // var showMore = true;
+  // for (var i = 0; i < arrayLength; i++) {
+  //   if (showMore && i >= 9) {
+  //     showMore = false;
+  //     var card = cardArray[i]; 
+  //     console.log(showMoreLessButton.innerText);
+  //     var hideCard = document.getElementById(card.id.toString());
+  //     hideCard.parentElement.style.display = 'none';
+  //     showMoreLessButton.innerText = 'Show More';
+  //   } else {
+  //     showMore = true;
+  //     debugger
+  //     var card = cardArray[i]; 
+  //     var showCard = document.getElementById(card.id.toString());
+  //     showCard.parentElement.style.display = 'block';
+  //     showMoreLessButton.innerText = 'Show Less';
+  //   }
+  // }
+
+// function showMoreShowLess(e) {
+//   e.preventDefault();
+//   var arrayLength = cardArray.length;
+//   var button = document.querySelector('#show-more-less-button');
+//   for (var i = 0; i < arrayLength; i++) {
+//     if (i >= 10) {
+//       var card = cardArray[i]; 
+//       var hideCard = document.getElementById(card.id.toString());
+//       hideCard.parentElement.style.display = 'none';
+//       button.innerHTML = 'Show More';
+//     } else {
+//       var card = cardArray[i]; 
+//       var showCard = document.getElementById(card.id.toString());
+//       button.innerHTML = 'Show Less';
+//       showCard.parentElement.style.display = 'block';
+//     }
+//   }
+// }
+
+// function recentIdeas() {
+//   if(showMoreLessButton.innerHTML === "Show Less") {
+//   var reverseArray = cardArray.reverse();
+//   console.log(cardArray)
+//   var showTenIdeas = reverseArray.filter(function (idea, index) {
+//     if (index <= 9) {
+//     return idea;
+//   }
+// });
+//   removeAllCards();
+//   var recentTen = showTenIdeas.reverse();
+//   recentTen.forEach(function(idea){
+//     generateIdeaCard(idea);
+//   });
+//   showMoreLessButton.innerText === "Show More";
+// } else if(showMoreLessButton.innerHTML === "Show More") {
+//     persistCardsOnPageLoad();
+//   }
+// }
+//   e.preventDefault();
+//       var slicedCards = cardArray.slice(9);
+//   cardArray.forEach(function(idea){
+//     console.log(idea)
+//     if(showMoreLessButton.innerText === "Show less") {
+//       slicedCards;
+//       console.log(slicedCards);
+//     }
+//     if(showMoreLessButton.innerText === "Show more") {
+//       persistCardsOnPageLoad(idea);
+//     }
+//   })
+// })
 
 // function buttonEvents(e) {
 //   if (e.target.classList.contains('delete-button')) {
