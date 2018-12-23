@@ -99,11 +99,15 @@ function filterIdeasByGenius(e) {
 function showMoreShowLess(e) {
   e.preventDefault();
   var arrayLength = cardArray.length;
-  console.log(arrayLength);
-  if (arrayLength >= 10) {
-
-  } else {
-    // button says show more, cards on DOM don't change
+  for (var i = 0; i < arrayLength; i++) {
+    if (i >= 10) {
+      var card = cardArray[i]; 
+      console.log(card.id)
+      var hideCard = document.getElementById(card.id.toString());
+      console.log(hideCard);
+      hideCard.parentElement.style.visibility = 'hidden';
+      console.log(hideCard.parentElement);
+    }
   }
 }
 
