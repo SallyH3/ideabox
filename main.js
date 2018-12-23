@@ -16,30 +16,41 @@ document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
 document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
 // document.querySelector('#show-more-less-button').addEventListener('click', showMoreShowLess);
-showMoreLessButton.addEventListener('click', function(e){
-  e.preventDefault();
-  var arrayLength = cardArray.length;
-  // var button = document.querySelector('#show-more-less-button');
-  
-  var showMore = true;
-  for (var i = 0; i < arrayLength; i++) {
-    if (showMore && i >= 9) {
-      showMore = false;
-      var card = cardArray[i]; 
-      console.log(showMoreLessButton.innerText);
-      var hideCard = document.getElementById(card.id.toString());
-      hideCard.parentElement.style.display = 'none';
-      showMoreLessButton.innerText = 'Show More';
-    } else {
-      showMore = true;
-      debugger
-      var card = cardArray[i]; 
-      var showCard = document.getElementById(card.id.toString());
-      showCard.parentElement.style.display = 'block';
-      showMoreLessButton.innerText = 'Show Less';
-    }
+
+showMoreLessButton.addEventListener('click', recentIdeas);
+
+function recentIdeas() {
+  if(showMoreLessButton.innerHTML === "Show Less") {
+  var reverseArray = cardArray.reverse();
+  console.log(cardArray)
+  var showTenIdeas = reverseArray.filter(function (idea, index) {
+    if (index <= 9) {
+    return idea;
   }
-})
+});
+  removeAllCards();
+  var recentTen = showTenIdeas.reverse();
+  recentTen.forEach(function(idea){
+    generateIdeaCard(idea);
+  });
+  showMoreLessButton.innerText === "Show More";
+} else if(showMoreLessButton.innerHTML === "Show More") {
+    persistCardsOnPageLoad();
+  }
+}
+//   e.preventDefault();
+//       var slicedCards = cardArray.slice(9);
+//   cardArray.forEach(function(idea){
+//     console.log(idea)
+//     if(showMoreLessButton.innerText === "Show less") {
+//       slicedCards;
+//       console.log(slicedCards);
+//     }
+//     if(showMoreLessButton.innerText === "Show more") {
+//       persistCardsOnPageLoad(idea);
+//     }
+//   })
+// })
 
 
   //clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
@@ -86,6 +97,27 @@ function saveOnReturn(e) {
     })
   }
 }
+
+  // var arrayLength = cardArray.length;
+  // var button = document.querySelector('#show-more-less-button');
+  // var showMore = true;
+  // for (var i = 0; i < arrayLength; i++) {
+  //   if (showMore && i >= 9) {
+  //     showMore = false;
+  //     var card = cardArray[i]; 
+  //     console.log(showMoreLessButton.innerText);
+  //     var hideCard = document.getElementById(card.id.toString());
+  //     hideCard.parentElement.style.display = 'none';
+  //     showMoreLessButton.innerText = 'Show More';
+  //   } else {
+  //     showMore = true;
+  //     debugger
+  //     var card = cardArray[i]; 
+  //     var showCard = document.getElementById(card.id.toString());
+  //     showCard.parentElement.style.display = 'block';
+  //     showMoreLessButton.innerText = 'Show Less';
+  //   }
+  // }
 
 function filterIdeasBySwill(e) {
   e.preventDefault();
