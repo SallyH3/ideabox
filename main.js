@@ -101,7 +101,7 @@ function showMoreShowLess(e) {
   var arrayLength = cardArray.length;
   console.log(arrayLength);
   if (arrayLength >= 10) {
-    
+
   } else {
     // button says show more, cards on DOM don't change
   }
