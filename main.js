@@ -102,11 +102,11 @@ function showMoreShowLess(e) {
   for (var i = 0; i < arrayLength; i++) {
     if (i >= 10) {
       var card = cardArray[i]; 
-      console.log(card.id)
+      // console.log(card.id)
       var hideCard = document.getElementById(card.id.toString());
-      console.log(hideCard);
-      hideCard.parentElement.style.visibility = 'hidden';
-      console.log(hideCard.parentElement);
+      // console.log(hideCard);
+      hideCard.parentElement.style.display = 'none';
+      // console.log(hideCard.parentElement);
     }
   }
 }
