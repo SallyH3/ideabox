@@ -3,13 +3,11 @@ class Idea {
     this.title = title;
     this.body = body;
     this.id = Date.now();
-    // move back down to updateQuality after testing
     this.qualityArray = ['swill', 'plausible', 'genius'];
     this.qualityIndex = 0; 
   }
 
   saveToStorage(cardArray) {
-    // var arrayJSON = JSON.stringify(cardArray);
     localStorage.setItem('cardArray', JSON.stringify(cardArray));
   }
 
@@ -29,6 +27,7 @@ class Idea {
     })
     localStorage.setItem('cardArray', JSON.stringify(backIntoStorage));
   }
+
   updateQuality(vote) {
     if (vote === 'upvote' && this.qualityIndex != [2]) {
       this.qualityIndex++; 
@@ -38,7 +37,6 @@ class Idea {
       this.qualityIndex--;
       this.saveToStorage(cardArray);
     }
-    console.log(this.qualityIndex);
   }
 }
 
