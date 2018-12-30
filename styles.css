@@ -16,6 +16,7 @@ header {
   background-color: #322A30;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .main-title {
@@ -35,8 +36,9 @@ header {
 /* -- Live search -- */
 
 .search-container {
-  display: inline-flex;
+  display: flex;
   font-weight: 300;
+  justify-content: flex-end;
   margin-left: auto;
   margin: 10px;
   overflow: hidden;
