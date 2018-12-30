@@ -1,45 +1,23 @@
-var cardArray = [];
-var cardWrapper = document.querySelector('.card-wrapper');
+//GLOBAL VARIABLES
+
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
+var cardArray = [];
+var cardWrapper = document.querySelector('.card-wrapper');
 var showMoreLessButton = document.querySelector('#show-more-less-button');
 
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
+searchInput.addEventListener('input', liveSearchFilter);
+saveButton.addEventListener('click', createNewIdea);
+window.addEventListener('load', persistCardsOnPageLoad);
+showMoreLessButton.addEventListener('click', recentIdeas);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
 document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
-saveButton.addEventListener('click', createNewIdea);
-searchInput.addEventListener('input', liveSearchFilter);
-showMoreLessButton.addEventListener('click', recentIdeas);
-window.addEventListener('load', persistCardsOnPageLoad);
 
 //FUNCTIONS
-
-function recentIdeas() {
-  if(showMoreLessButton.innerText === 'Show Less') {
-    cardWrapper.style.height = '1147px';
-    cardWrapper.style.overflow = 'hidden';
-    showMoreLessButton.innerText = 'Show More';
-} else {
-    showMoreLessButton.innerText = 'Show Less';
-    cardWrapper.style.overflow = 'visible';
-  }
-}
-
-function updateIdeaQuality(event, vote) {
-  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
-  var card = cardArray.find(function(card) {
-    return card.id === cardIdentifier
-    });
-  card.updateQuality(vote);
-  var cardContainerElement = document.getElementById(cardIdentifier);
-  var cardQualityFooterElement = cardContainerElement.children[2];
-  var cardArrrowButtons = cardQualityFooterElement.children[0];
-  var cardQualityText = cardArrrowButtons.children[2];
-  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
-}
 
 function createNewIdea(e) {
   e.preventDefault();
@@ -50,6 +28,29 @@ function createNewIdea(e) {
   cardArray.push(ideaObject);
   ideaObject.saveToStorage(cardArray);
   clearTextFields();
+}
+
+function persistCardsOnPageLoad() {
+  if(localStorage.hasOwnProperty('cardArray')) {
+    var getIdeas = localStorage.getItem('cardArray');
+    var parsedIdeas = JSON.parse(getIdeas);
+    parsedIdeas.forEach(function(idea) {
+      var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
+      cardArray.push(ideaObject);
+      generateIdeaCard(ideaObject);
+    });
+  }
+}
+
+function recentIdeas() {
+  if(showMoreLessButton.innerText === 'Show Less') {
+    cardWrapper.style.height = '1147px';
+    cardWrapper.style.overflow = 'hidden';
+    showMoreLessButton.innerText = 'Show More';
+} else {
+    showMoreLessButton.innerText = 'Show Less';
+    cardWrapper.style.overflow = 'visible';
+  }
 }
 
 function saveOnReturn(e) {
@@ -63,6 +64,36 @@ function saveOnReturn(e) {
       }
     });
   }
+}
+
+function generateIdeaCard(ideaObject) {
+  var card = document.createElement('section');
+  card.className = 'idea-card';
+  card.innerHTML = 
+  `<section class='card-container' id='${ideaObject.id}'>
+    <h2 contenteditable = true class='card-title'>
+      ${ideaObject.title}
+    </h2>  
+    <article contenteditable = true class='card-body'>
+      ${ideaObject.body}
+      <hr>
+    </article>
+    <article class='idea-card-footer'>
+      <section class='arrow-buttons-quality-container'>
+        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, 'downvote')'>
+        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, 'upvote')'>
+        <span class='quality-category'>
+        Quality: 
+        ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+        </span>
+      </section>
+      <section class='delete-button-container'>
+        <img class='delete-button' src='delete.svg' onclick='deleteIdea(${ideaObject.id})'>
+      </section>
+    </article>
+  </section>
+  `
+  cardWrapper.prepend(card);
 }
 
 function filterIdeasBySwill(e) {
@@ -133,44 +164,15 @@ function liveSearchFilter() {
   });
 }
 
-function generateIdeaCard(ideaObject) {
-  var card = document.createElement('section');
-  card.className = 'idea-card';
-  card.innerHTML = 
-  `<section class="card-container" id="${ideaObject.id}">
-    <h2 contenteditable = true class="card-title">
-      ${ideaObject.title}
-    </h2>  
-    <article contenteditable = true class="card-body">
-      ${ideaObject.body}
-      <hr>
-    </article>
-    <article class="idea-card-footer">
-      <section class="arrow-buttons-quality-container">
-        <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality(event, 'downvote')">
-        <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
-        <span class="quality-category">
-        Quality: 
-        ${ideaObject.qualityArray[ideaObject.qualityIndex]}
-        </span>
-      </section>
-      <section class="delete-button-container">
-        <img class="delete-button" src="delete.svg" onclick="deleteIdea(${ideaObject.id})">
-      </section>
-    </article>
-  </section>
-  `
-  cardWrapper.prepend(card);
-}
-
-function persistCardsOnPageLoad() {
-  if(localStorage.hasOwnProperty('cardArray')) {
-    var getIdeas = localStorage.getItem('cardArray');
-    var parsedIdeas = JSON.parse(getIdeas);
-    parsedIdeas.forEach(function(idea) {
-      var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-      cardArray.push(ideaObject);
-      generateIdeaCard(ideaObject);
+function updateIdeaQuality(event, vote) {
+  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
+  var card = cardArray.find(function(card) {
+    return card.id === cardIdentifier
     });
-  }
+  card.updateQuality(vote);
+  var cardContainerElement = document.getElementById(cardIdentifier);
+  var cardQualityFooterElement = cardContainerElement.children[2];
+  var cardArrrowButtons = cardQualityFooterElement.children[0];
+  var cardQualityText = cardArrrowButtons.children[2];
+  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
 }
