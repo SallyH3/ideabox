@@ -197,18 +197,35 @@ header {
   .title-body-container,
   #title-input,
   #body-input,
-  #save-button {
+  #save-button,
+  .quality-buttons-container,
+  #show-more-less-button {
     width: 100%;
+    /*padding: 5%;*/
+  }
+  .title-body-container {
+    padding: 5%;
+  }
+  .show-more-show-less-container {
+    padding: 1% 5%;
   }
 }
 
 @media screen and (max-width: 594px) {
-  #live-search,
+  header {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .main-title {
+    font-size: 3em;
+    margin: 30px 30px 0px 0px;
+  }
+  /*#live-search,
   .ideabox-title,
   .triples-title,
   {
     width: 100%;
-  }
+  }*/
 }
 
 @media screen and (max-width: 320px) {
