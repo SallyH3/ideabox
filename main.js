@@ -137,25 +137,25 @@ function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
   card.innerHTML = 
-  `<section class="card-container" id="${ideaObject.id}">
-    <h2 contenteditable = true class="card-title">
+  `<section class='card-container' id='${ideaObject.id}'>
+    <h2 contenteditable = true class='card-title'>
       ${ideaObject.title}
     </h2>  
-    <article contenteditable = true class="card-body">
+    <article contenteditable = true class='card-body'>
       ${ideaObject.body}
       <hr>
     </article>
-    <article class="idea-card-footer">
-      <section class="arrow-buttons-quality-container">
-        <img class="downvote-button" src="downvote.svg" onclick="updateIdeaQuality(event, 'downvote')">
-        <img class="upvote-button" src="upvote.svg" onclick="updateIdeaQuality(event, 'upvote')">
-        <span class="quality-category">
+    <article class='idea-card-footer'>
+      <section class='arrow-buttons-quality-container'>
+        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, 'downvote')'>
+        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, 'upvote')'>
+        <span class='quality-category'>
         Quality: 
         ${ideaObject.qualityArray[ideaObject.qualityIndex]}
         </span>
       </section>
-      <section class="delete-button-container">
-        <img class="delete-button" src="delete.svg" onclick="deleteIdea(${ideaObject.id})">
+      <section class='delete-button-container'>
+        <img class='delete-button' src='delete.svg' onclick='deleteIdea(${ideaObject.id})'>
       </section>
     </article>
   </section>
