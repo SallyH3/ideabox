@@ -1,23 +1,19 @@
+var cardArray = [];
+var cardWrapper = document.querySelector('.card-wrapper');
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
-var cardArray = [];
-//perhaps change to ideaArrays or ideas because it is better semantically
-var cardWrapper = document.querySelector('.card-wrapper');
 var showMoreLessButton = document.querySelector('#show-more-less-button');
 
 //EVENT LISTENERS
 
 cardWrapper.addEventListener('keyup', saveOnReturn);
-// cardWrapper.addEventListener('click', deleteIdea);
-searchInput.addEventListener('input', liveSearchFilter);
-saveButton.addEventListener('click', createNewIdea);
-window.addEventListener('load', persistCardsOnPageLoad);
-document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
-document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
 document.querySelector('.genius').addEventListener('click', filterIdeasByGenius);
-// document.querySelector('#show-more-less-button').addEventListener('click', showMoreShowLess);
-
+document.querySelector('.plausible').addEventListener('click', filterIdeasByPlausible);
+document.querySelector('.swill').addEventListener('click', filterIdeasBySwill);
+saveButton.addEventListener('click', createNewIdea);
+searchInput.addEventListener('input', liveSearchFilter);
 showMoreLessButton.addEventListener('click', recentIdeas);
+window.addEventListener('load', persistCardsOnPageLoad);
 
 //FUNCTIONS
 
@@ -26,7 +22,6 @@ function recentIdeas() {
   cardWrapper.style.height = '1147px';
   cardWrapper.style.overflow = 'hidden';
   showMoreLessButton.innerText = 'Show More';
-
 } else {
   showMoreLessButton.innerText = 'Show Less';
   cardWrapper.style.overflow = 'visible';
@@ -36,10 +31,10 @@ function recentIdeas() {
 function updateIdeaQuality(event, vote) {
   var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
   console.log(cardIdentifier);
- var card = cardArray.find(function(card) {
-      return card.id === cardIdentifier
+  var card = cardArray.find(function(card) {
+    return card.id === cardIdentifier
     });
-   card.updateQuality(vote);
+  card.updateQuality(vote);
   var cardContainerElement = document.getElementById(cardIdentifier);
   var cardQualityFooterElement = cardContainerElement.children[2];
   var cardArrrowButtons = cardQualityFooterElement.children[0];
