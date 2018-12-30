@@ -14,7 +14,7 @@ saveButton.addEventListener('click', createNewIdea);
 searchInput.addEventListener('input', liveSearchFilter);
 showMoreLessButton.addEventListener('click', recentIdeas);
 window.addEventListener('load', persistCardsOnPageLoad);
-
+  
 //FUNCTIONS
 
 function recentIdeas() {
