@@ -1,3 +1,5 @@
+//GLOBAL VARIABLES
+
 var saveButton = document.querySelector('#save-button');
 var searchInput = document.querySelector('#live-search');
 var cardArray = [];
@@ -51,19 +53,6 @@ function recentIdeas() {
   }
 }
 
-function updateIdeaQuality(event, vote) {
-  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
-  var card = cardArray.find(function(card) {
-    return card.id === cardIdentifier
-    });
-  card.updateQuality(vote);
-  var cardContainerElement = document.getElementById(cardIdentifier);
-  var cardQualityFooterElement = cardContainerElement.children[2];
-  var cardArrrowButtons = cardQualityFooterElement.children[0];
-  var cardQualityText = cardArrrowButtons.children[2];
-  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
-}
-
 function saveOnReturn(e) {
   var cardTitle = e.target.closest('.card-container').firstChild.nextElementSibling.innerText;
   var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText;
@@ -75,6 +64,36 @@ function saveOnReturn(e) {
       }
     });
   }
+}
+
+function generateIdeaCard(ideaObject) {
+  var card = document.createElement('section');
+  card.className = 'idea-card';
+  card.innerHTML = 
+  `<section class='card-container' id='${ideaObject.id}'>
+    <h2 contenteditable = true class='card-title'>
+      ${ideaObject.title}
+    </h2>  
+    <article contenteditable = true class='card-body'>
+      ${ideaObject.body}
+      <hr>
+    </article>
+    <article class='idea-card-footer'>
+      <section class='arrow-buttons-quality-container'>
+        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, 'downvote')'>
+        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, 'upvote')'>
+        <span class='quality-category'>
+        Quality: 
+        ${ideaObject.qualityArray[ideaObject.qualityIndex]}
+        </span>
+      </section>
+      <section class='delete-button-container'>
+        <img class='delete-button' src='delete.svg' onclick='deleteIdea(${ideaObject.id})'>
+      </section>
+    </article>
+  </section>
+  `
+  cardWrapper.prepend(card);
 }
 
 function filterIdeasBySwill(e) {
@@ -145,32 +164,15 @@ function liveSearchFilter() {
   });
 }
 
-function generateIdeaCard(ideaObject) {
-  var card = document.createElement('section');
-  card.className = 'idea-card';
-  card.innerHTML = 
-  `<section class='card-container' id='${ideaObject.id}'>
-    <h2 contenteditable = true class='card-title'>
-      ${ideaObject.title}
-    </h2>  
-    <article contenteditable = true class='card-body'>
-      ${ideaObject.body}
-      <hr>
-    </article>
-    <article class='idea-card-footer'>
-      <section class='arrow-buttons-quality-container'>
-        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, 'downvote')'>
-        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, 'upvote')'>
-        <span class='quality-category'>
-        Quality: 
-        ${ideaObject.qualityArray[ideaObject.qualityIndex]}
-        </span>
-      </section>
-      <section class='delete-button-container'>
-        <img class='delete-button' src='delete.svg' onclick='deleteIdea(${ideaObject.id})'>
-      </section>
-    </article>
-  </section>
-  `
-  cardWrapper.prepend(card);
+function updateIdeaQuality(event, vote) {
+  var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
+  var card = cardArray.find(function(card) {
+    return card.id === cardIdentifier
+    });
+  card.updateQuality(vote);
+  var cardContainerElement = document.getElementById(cardIdentifier);
+  var cardQualityFooterElement = cardContainerElement.children[2];
+  var cardArrrowButtons = cardQualityFooterElement.children[0];
+  var cardQualityText = cardArrrowButtons.children[2];
+  cardQualityText.innerText = `Quality: ${card.qualityArray[card.qualityIndex]}`;
 }
