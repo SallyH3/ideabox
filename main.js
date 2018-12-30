@@ -19,18 +19,17 @@ window.addEventListener('load', persistCardsOnPageLoad);
 
 function recentIdeas() {
   if(showMoreLessButton.innerText === 'Show Less') {
-  cardWrapper.style.height = '1147px';
-  cardWrapper.style.overflow = 'hidden';
-  showMoreLessButton.innerText = 'Show More';
+    cardWrapper.style.height = '1147px';
+    cardWrapper.style.overflow = 'hidden';
+    showMoreLessButton.innerText = 'Show More';
 } else {
-  showMoreLessButton.innerText = 'Show Less';
-  cardWrapper.style.overflow = 'visible';
+    showMoreLessButton.innerText = 'Show Less';
+    cardWrapper.style.overflow = 'visible';
   }
 }
 
 function updateIdeaQuality(event, vote) {
   var cardIdentifier = parseInt(event.target.closest('.card-container').getAttribute('id'));
-  console.log(cardIdentifier);
   var card = cardArray.find(function(card) {
     return card.id === cardIdentifier
     });
@@ -58,11 +57,11 @@ function saveOnReturn(e) {
   var cardBody = e.target.closest('.card-container').firstChild.nextElementSibling.nextElementSibling.innerText;
   var cardId = parseInt(e.target.closest('.card-container').getAttribute('id'));
   if(e.keyCode === 13) {
-    cardArray.forEach(function (card){
+    cardArray.forEach(function (card) {
       if(card.id === cardId) {
         card.updateContent(cardTitle, cardBody, cardArray);
       }
-    })
+    });
   }
 }
 
@@ -70,7 +69,7 @@ function filterIdeasBySwill(e) {
   e.preventDefault();
   removeAllCards();
   var swillCards = cardArray.filter(function(idea) {
-  return idea.qualityIndex === 0;
+    return idea.qualityIndex === 0;
   });
   swillCards.forEach(function(idea) {
   generateIdeaCard(idea);
@@ -100,24 +99,17 @@ function filterIdeasByGenius(e) {
 }
 
 function deleteIdea(cardId) {
-    var card = cardArray.find(function(cardId) {return cardId});
-    var index = cardArray.indexOf(function(cardId) {return cardId});
-    cardArray.splice(index, 1);
-    card.deleteFromStorage(card.id);
-    var deleteCard = document.getElementById(cardId.toString());
-    deleteCard.parentElement.remove();
+  var card = cardArray.find(function(cardId) {
+    return cardId
+  });
+  var index = cardArray.indexOf(function(cardId) {
+    return cardId
+  });
+  cardArray.splice(index, 1);
+  card.deleteFromStorage(card.id);
+  var deleteCard = document.getElementById(cardId.toString());
+  deleteCard.parentElement.remove();
 }
-
-  //- Change function name from buttonEvents to RemoveCard
-// …After we grab the classList contains ‘delete-button’, 
-//we want to declare a new var called ideaObject and assign that to 
-//e.target.closest(‘idea-card’).dataset.index(this gives us access to 
-//the data attributes of the event we’re targeting both in HTML and 
-//the DOM but, we’re going to be targeting the DOM in this case),
-// Then we want to do our ideaObject.deleteFromStorage();
-// Finally, we want to do e.target.closest(‘.idea-card’).remove();
-
-
 
 function clearTextFields() {
   var ideaTitleInput = document.querySelector('#title-input');
@@ -130,37 +122,25 @@ function removeAllCards() {
   cardWrapper.innerHTML = '';
 }
 
-//at the beginning of live search function, remove cards
 function liveSearchFilter() {
   removeAllCards();
-  //delete card function invoked here
   var searchCurrentText = searchInput.value;
   var filteredCards = cardArray.filter(function (idea) {
     return idea.title.includes(searchCurrentText) || idea.body.includes(searchCurrentText)
   });
-  filteredCards.forEach(function(idea){
+  filteredCards.forEach(function(idea) {
     generateIdeaCard(idea);
   });
-  //filter checks for true/false boolean and returns
-  //any objects that meet that function as true
-  //checking .title and .body on each element in array
-  // As a user types in the search box, the list of ideas should 
-  //filter in real time to only display ideas whose title or body 
-  //include the user’s text. The page should not reload.
 }
 
-
-
-// address footer make it a section
 function generateIdeaCard(ideaObject) {
   var card = document.createElement('section');
   card.className = 'idea-card';
-  // card.dataset.id = ideaObject.id;
   card.innerHTML = 
   `<section class="card-container" id="${ideaObject.id}">
     <h2 contenteditable = true class="card-title">
       ${ideaObject.title}
-      </h2>  
+    </h2>  
     <article contenteditable = true class="card-body">
       ${ideaObject.body}
       <hr>
@@ -183,7 +163,6 @@ function generateIdeaCard(ideaObject) {
   cardWrapper.prepend(card);
 }
 
-// assign value with || or 
 function persistCardsOnPageLoad() {
   if(localStorage.hasOwnProperty('cardArray')) {
     var getIdeas = localStorage.getItem('cardArray');
@@ -195,131 +174,3 @@ function persistCardsOnPageLoad() {
     });
   }
 }
-
-// ----BASEMENT OF SANDBOX-------//
-
-//clicking either upvote or downvote of these must not refresh page, new quality must be saved to local storage and persist on pageload
-
-  // var arrayLength = cardArray.length;
-  // var button = document.querySelector('#show-more-less-button');
-  // var showMore = true;
-  // for (var i = 0; i < arrayLength; i++) {
-  //   if (showMore && i >= 9) {
-  //     showMore = false;
-  //     var card = cardArray[i]; 
-  //     console.log(showMoreLessButton.innerText);
-  //     var hideCard = document.getElementById(card.id.toString());
-  //     hideCard.parentElement.style.display = 'none';
-  //     showMoreLessButton.innerText = 'Show More';
-  //   } else {
-  //     showMore = true;
-  //     debugger
-  //     var card = cardArray[i]; 
-  //     var showCard = document.getElementById(card.id.toString());
-  //     showCard.parentElement.style.display = 'block';
-  //     showMoreLessButton.innerText = 'Show Less';
-  //   }
-  // }
-
-// function showMoreShowLess(e) {
-//   e.preventDefault();
-//   var arrayLength = cardArray.length;
-//   var button = document.querySelector('#show-more-less-button');
-//   for (var i = 0; i < arrayLength; i++) {
-//     if (i >= 10) {
-//       var card = cardArray[i]; 
-//       var hideCard = document.getElementById(card.id.toString());
-//       hideCard.parentElement.style.display = 'none';
-//       button.innerHTML = 'Show More';
-//     } else {
-//       var card = cardArray[i]; 
-//       var showCard = document.getElementById(card.id.toString());
-//       button.innerHTML = 'Show Less';
-//       showCard.parentElement.style.display = 'block';
-//     }
-//   }
-// }
-
-// function recentIdeas() {
-//   if(showMoreLessButton.innerHTML === "Show Less") {
-//   var reverseArray = cardArray.reverse();
-//   console.log(cardArray)
-//   var showTenIdeas = reverseArray.filter(function (idea, index) {
-//     if (index <= 9) {
-//     return idea;
-//   }
-// });
-//   removeAllCards();
-//   var recentTen = showTenIdeas.reverse();
-//   recentTen.forEach(function(idea){
-//     generateIdeaCard(idea);
-//   });
-//   showMoreLessButton.innerText === "Show More";
-// } else if(showMoreLessButton.innerHTML === "Show More") {
-//     persistCardsOnPageLoad();
-//   }
-// }
-//   e.preventDefault();
-//       var slicedCards = cardArray.slice(9);
-//   cardArray.forEach(function(idea){
-//     console.log(idea)
-//     if(showMoreLessButton.innerText === "Show less") {
-//       slicedCards;
-//       console.log(slicedCards);
-//     }
-//     if(showMoreLessButton.innerText === "Show more") {
-//       persistCardsOnPageLoad(idea);
-//     }
-//   })
-// })
-
-// function buttonEvents(e) {
-//   if (e.target.classList.contains('delete-button')) {
-//     var storageItem = localStorage.getItem('array');
-//     var parsedItem = JSON.parse(storageItem);
-//     parsedItem.forEach(function(idea) {
-//     var ideaObject = new Idea(idea.title, idea.body, idea.id, idea.qualityIndex);
-//     ideaObject.deleteFromStorage(ideaObject.id);
-//     e.target.parentNode.parentNode.parentNode.remove();
-//     });
-//   }
-// }
-    // cardArray.forEach(function(ideaObject) {
-    // cardArray.deleteFromStorage(ideaObject.id);
-    //we dont need to grab from localStorage 
-    // closest instead of parentNode
-
-
-
-// target array on upvote and downvote buttons below 
-//(in same function)...
-//take out OR || logical operator and elseif and make into
-//an if statement instead per FEM3 student's advice
-
-  // else if (e.target.classList.contains('upvote-button') || e.target.classList.contains('downvote-button')) {
-  //   var storageItem = localStorage.getItem('array');
-  //   var parsedItem = JSON.parse(storageItem);
-    // var ideaObject = new Idea JSON.parse(idea.title, idea.body, idea.id, idea.qualityIndex);
-    // ideaObject.updateQuality(e.target.classList);
-//   } else {
-//     return 
-//   }
-// }
-
-//deleteIdea notes from Julie:
-
-  //we'll have to grab the card id
-  //iterate through the card array
-  //find the card with the same id 
-  //as the one that was clicked on
-  //using splice we will remove a specific 
-  //card based on the index
-  //update card array in local storage
-  //we'll then call saveToStorage and pass 
-  //in cardArray 
-
-
-
-
-
-
