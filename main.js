@@ -44,7 +44,7 @@ function persistCardsOnPageLoad() {
 
 function recentIdeas() {
   if(showMoreLessButton.innerText === 'Show Less') {
-    cardWrapper.style.height = '1147px';
+    cardWrapper.style.height = '1880px';
     cardWrapper.style.overflow = 'hidden';
     showMoreLessButton.innerText = 'Show More';
 } else {

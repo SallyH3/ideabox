@@ -177,6 +177,11 @@ header {
   color: #7C7879;
 }
 
+.card-body {
+  overflow-y: scroll;
+  height: 75px;
+}
+
 .arrow-buttons-quality-container,
 .delete-button-container {
   align-items: center;
