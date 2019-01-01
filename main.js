@@ -76,12 +76,11 @@ function generateIdeaCard(ideaObject) {
     </h2>  
     <article contenteditable = true class='card-body'>
       ${ideaObject.body}
-      <hr>
     </article>
     <article class='idea-card-footer'>
       <section class='arrow-buttons-quality-container'>
-        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, 'downvote')'>
-        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, 'upvote')'>
+        <img class='downvote-button' src='downvote.svg' onclick='updateIdeaQuality(event, "downvote")'>
+        <img class='upvote-button' src='upvote.svg' onclick='updateIdeaQuality(event, "upvote")'>
         <span class='quality-category'>
         Quality: 
         ${ideaObject.qualityArray[ideaObject.qualityIndex]}
