@@ -126,6 +126,10 @@ header {
   background-color: #524649;
 }
 
+#show-more-less-button:hover {
+  background-color: #524649;
+}
+
 .quality-buttons-container {
   display: flex;
   flex-direction: row;
@@ -143,6 +147,10 @@ header {
   font-weight: bold;
   padding: 5px;
   width: 33%;
+}
+
+.buttons:hover {
+  background-color: #524649;
 }
 
 .show-more-show-less-container {
@@ -189,11 +197,23 @@ header {
   padding: 5px;
 }
 
-
 .idea-card-footer {
   display: flex;
   justify-content: space-between;
+  border-top: 2px solid #D2CCCD;
 }
+
+.downvote-button:hover {
+  transform: scale(1.25);
+}
+
+.upvote-button:hover {
+  transform: scale(1.25);
+}
+.delete-button:hover {
+  transform: scale(1.25);
+}
+
 
 /* -- Media queries -- */
 
