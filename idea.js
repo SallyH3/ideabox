@@ -1,8 +1,8 @@
 class Idea {
-  constructor(title, body) {
+  constructor(title, body, id) {
     this.title = title;
     this.body = body;
-    this.id = Date.now();
+    this.id = id || Date.now();
     this.qualityArray = ['swill', 'plausible', 'genius'];
     this.qualityIndex = 0; 
   }
@@ -17,15 +17,8 @@ class Idea {
     this.saveToStorage(cardArray);
   }
 
-  deleteFromStorage(id) {
-    var getArray = localStorage.getItem('cardArray');
-    var parseArray = JSON.parse(getArray);
-    var backIntoStorage = parseArray.filter(function(idea) {
-      if(idea.id != id) {
-        return idea;
-      }
-    })
-    localStorage.setItem('cardArray', JSON.stringify(backIntoStorage));
+  deleteFromStorage(cardArray) {
+    localStorage.setItem('cardArray', JSON.stringify(cardArray));
   }
 
   updateQuality(vote) {

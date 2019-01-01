@@ -129,16 +129,14 @@ function filterIdeasByGenius(e) {
 }
 
 function deleteIdea(cardId) {
-  var card = cardArray.find(function(cardId) {
-    return cardId
+  var card = cardArray.find(function(card) {
+    return card.id === cardId
   });
-  var index = cardArray.indexOf(function(cardId) {
-    return cardId
-  });
+  var index = cardArray.indexOf(card);
   cardArray.splice(index, 1);
-  card.deleteFromStorage(card.id);
+  card.deleteFromStorage(cardArray);
   var deleteCard = document.getElementById(cardId.toString());
-  deleteCard.parentElement.remove();
+  deleteCard.closest('.idea-card').remove();
 }
 
 function clearTextFields() {

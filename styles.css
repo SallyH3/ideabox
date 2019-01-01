@@ -118,10 +118,6 @@ header {
   width: 650px;
 }
 
-#save-button:disabled {
-  background-color: #C2C1C0;
-}
-
 #save-button:hover {
   background-color: #524649;
 }
@@ -210,10 +206,10 @@ header {
 .upvote-button:hover {
   transform: scale(1.25);
 }
+
 .delete-button:hover {
   transform: scale(1.25);
 }
-
 
 /* -- Media queries -- */
 
@@ -227,12 +223,15 @@ header {
   #show-more-less-button {
     width: 100%;
   }
+
   .title-body-container {
     padding: 7%;
   }
+
   .show-more-show-less-container {
     padding: 1% 7%;
   }
+
   .idea-card {
     width: 88%;
   }
@@ -243,17 +242,21 @@ header {
     flex-wrap: wrap;
     justify-content: space-around;
   }
+
   .main-title {
     font-size: 2.5em;
     margin: 30px 30px 0px 0px;
   }
+
   .search-container {
     justify-content: center;
   }
+
   .quality-buttons-container {
     display: flex;
     flex-direction: column;
   }
+
   .buttons {
     font-size: 20px;
     margin-bottom: 15px;
@@ -268,18 +271,22 @@ header {
     font-size: 36px;
     width: 100%;
   }
+
   #live-search {
     font-size: 20px,
   }
+
   header {
     display: flex;
   }
+
   .title-body-container,
   #title-input,
   #body-input,
   #save-button {
     width: 100%;
   }
+
   .idea-card {
     width: 85%;
   }
