@@ -2,7 +2,7 @@
 ---
 
 
-## Authors:
+#### Authors:
 ---
 Kim Myers, Sally Haefling and Kayla Lawson. 
 
