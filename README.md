@@ -1,4 +1,4 @@
-## IdeaBox-Triples
+## IdeaBox Triples
 ---
 
 
