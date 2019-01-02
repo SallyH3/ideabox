@@ -86,6 +86,10 @@ We would like to get the show more/show less function working with JavaScript. W
 ### Our version (mobile view to 320px):
 ---
 ![ideabox-mobile](https://user-images.githubusercontent.com/40863560/50604526-7ac56080-0e7c-11e9-87f7-5d741a8315b9.png)
+
+
+### Our version (mobile view to 320px with cards):
+---
 ![ideabox-mobile-cards](https://user-images.githubusercontent.com/40863560/50604528-7ac56080-0e7c-11e9-8f74-921b68a7192b.png)
 
 
