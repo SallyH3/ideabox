@@ -3,7 +3,7 @@
 
 
 #### Authors:
-Kim Myers, Sally Haefling and Kayla Lawson. 
+Kim Myers, Sally H and Kayla Lawson. 
 
 
 #### Built with:
